@@ -1,5 +1,4 @@
-
-name: Build and deploy JAR app to Azure Web App - sjbit-demo-app-service
+name: Build and deploy JAR app to Azure Web App - sjbit-demo3
 
 on:
   push:
@@ -11,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Required for actions/checkout
+      contents: read
 
     steps:
       - name: Checkout Repository
@@ -25,22 +24,22 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
-        working-directory: demo  # Run inside the 'demo' folder
+        working-directory: demo/demo/demo  # Your actual pom.xml path
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: demo/target/sjbit-demo-app.jar  # Output JAR file
+          path: demo/demo/demo/target/sjbit-demo-app.jar  # Output JAR
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: https://asiya-lab11-e7h3atfab2c2hvge.canadacentral-01.azurewebsites.net
     permissions:
-      id-token: write # Required for Azure login
+      id-token: write
       contents: read
 
     steps:
@@ -62,5 +61,3 @@ jobs:
           app-name: 'Asiya-Lab11'
           slot-name: 'Production'
           package: 'sjbit-demo-app.jar'
-
-
