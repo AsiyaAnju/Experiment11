@@ -25,13 +25,13 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
-        working-directory: demo  # Run inside the 'demo' folder
+        working-directory: demo/demo/demo
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: demo/target/sjbit-demo-app.jar  # Output JAR file
+          path: demo/demo/demo/target/sjbit-demo-app.jar  # Output JAR file
 
   deploy:
     runs-on: ubuntu-latest
